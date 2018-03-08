@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8">
+  </head>
+
+<body>
+  <h2>Options (unset for server default)</h2>
+  <form>
+    <table style="width: 100%">
+      <colgroup>
+        <col span="1" style="width: 25%;">
+        <col span="1" style="width: 75%;">
+      </colgroup>
+      <tbody>
+        <tr>
+          <td><label data-i18n="optionQbtUrlTitle" for="qbtUrl"></label></td>
+          <td>
+            <input type="text" id="qbtUrl" name="qbtUrl" style="width: 100%"
+              data-i18n="optionQbtUrlPlaceholder|placeholder">
+          </td>
+        </tr>
+        <tr>
+          <td><label data-i18n="optionSavepathTitle" for="savepath"></label></td>
+          <td>
+            <input type="text" id="savepath" name="savepath" style="width: 100%"
+              data-i18n="optionSavepathPlaceholder|placeholder">
+          </td>
+        </tr>
+        <tr>
+          <td><label data-i18n="optionCatTitle" for="category"></label></td>
+          <td>
+            <input type="text" id="category" name="category" style="width: 100%"
+              data-i18n="optionCatPlaceholder|placeholder">
+          </td>
+        </tr>
+        <tr>
+          <td><label data-i18n="optionSkipChkTitle" for="skipChecking"></label></td>
+          <td>
+            <select id="skipChecking" name="skipChecking">
+              <option value="" selected></option>
+              <option value="true" data-i18n="optionTrue"></option>
+              <option value="false" data-i18n="optionFalse"></option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td><label data-i18n="optionPausedTitle" for="paused"></label></td>
+          <td>
+            <select id="paused" name="paused">
+              <option value="" selected></option>
+              <option value="true" data-i18n="optionTrue"></option>
+              <option value="false" data-i18n="optionFalse"></option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td><label data-i18n="optionRootFolderTitle" for="rootFolder"></label></td>
+          <td>
+            <select id="rootFolder" name="rootFolder">
+              <option value="" selected></option>
+              <option value="true" data-i18n="optionTrue"></option>
+              <option value="false" data-i18n="optionFalse"></option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td><label data-i18n="optionRenameTitle" for="rename"></label></td>
+          <td>
+            <input type="text" id="rename" name="rename" style="width: 100%"
+              data-i18n="optionRenamePlaceholder|placeholder">
+          </td>
+        </tr>
+        <tr>
+          <td><label data-i18n="optionUpLimitTitle" for="upLimit"></label></td>
+          <td>
+            <input type="number" id="upLimit" name="upLimit" value="0">
+            <label data-i18n="generalLabelBps"></label>
+          </td>
+        </tr>
+        <tr>
+          <td><label data-i18n="optionDlLimitTitle" for="dlLimit"></label></td>
+          <td>
+            <input type="number" id="dlLimit" name="dlLimit" value="0">
+            <label data-i18n="generalLabelBps"></label>
+          </td>
+        </tr>
+        <tr>
+          <td><label data-i18n="optionSeqDlTitle" for="sequentialDownload"></label></td>
+          <td>
+            <select id="sequentialDownload" name="sequentialDownload">
+              <option value="" selected></option>
+              <option value="true" data-i18n="optionTrue"></option>
+              <option value="false" data-i18n="optionFalse"></option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td><label data-i18n="optionFirstLastPiecePrioTitle" for="firstLastPiecePrio"></label></td>
+          <td>
+            <select id="firstLastPiecePrio" name="firstLastPiecePrio">
+              <option value="" selected></option>
+              <option value="true" data-i18n="optionTrue"></option>
+              <option value="false" data-i18n="optionFalse"></option>
+            </select>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <button data-i18n="optionButtonSave" type="submit"></button>
+  </form>
+  <script src="options.js"></script>
+</body>
+
+</html>

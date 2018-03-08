@@ -1,0 +1,25 @@
+{
+    "manifest_version": 2,
+    "name": "__MSG_extensionName__",
+    "description": "__MSG_extensionDescription__",
+    "version": "1",
+    "homepage_url": "https://github.com/kyuucr/add-link-to-qbittorrent-webui",
+    "default_locale": "en",
+    "background": {
+        "scripts": [
+            "background.js"
+        ]
+    },
+    "options_ui": {
+          "page": "options.html",
+          "browser_style": true
+    },
+    "permissions": [
+        "http://*/*",
+        "contextMenus",
+        "cookies",
+        "notifications",
+        "storage",
+        "tabs"
+    ]
+}

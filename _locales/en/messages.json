@@ -1,0 +1,141 @@
+{
+  "extensionName": {
+    "message": "Add Link to qBittorrent WebUI",
+    "description": "Name of the extension."
+  },
+
+  "extensionDescription": {
+    "message": "Add torrent link directly to qBittorrent WebUI from context menu. Supports HTTP, Magnet, and BitComet Tracker links.",
+    "description": "Description of the extension."
+  },
+
+  "contextItemTitle": {
+    "message": "Add Link to qBittorrent WebUI",
+    "description": "Title of context item."
+  },
+
+  "notificationTitle": {
+    "message": "qBittorent WebUI",
+    "description": "Title of general notification."
+  },
+
+  "errorXHR": {
+    "message": "XMLHttpRequest error occured.",
+    "description": "XMLHttpRequest error message."
+  },
+
+  "errorNotSupported": {
+    "message": "URL not supported!",
+    "description": "Error message when encountering unsupported links."
+  },
+
+  "errorNoQbtURL": {
+    "message": "Please set qBittorrent WebUI address.",
+    "description": "Error message when qBittorrent WebUI address is not set."
+  },
+
+  "errorNoCookie": {
+    "message": "Cannot find credentials, please login.",
+    "description": "Error message when login cookie is not found."
+  },
+
+  "optionQbtUrlTitle": {
+    "message": "qBittorrent address",
+    "description": "Title for qBittorrent address option."
+  },
+
+  "optionQbtUrlPlaceholder": {
+    "message": "URL address with http:// prefix included",
+    "description": "Placeholder for qBittorrent address input."
+  },
+
+  "optionSavepathTitle" : {
+    "message": "Save path",
+    "description": "TODO"
+  },
+
+  "optionSavepathPlaceholder" : {
+    "message": "e.g., C:\\Users\\Downloads, /home/user/",
+    "description": "TODO"
+  },
+
+  "optionCatTitle" : {
+    "message": "Category",
+    "description": "TODO"
+  },
+
+  "optionCatPlaceholder" : {
+    "message": "",
+    "description": "TODO"
+  },
+
+  "optionSkipChkTitle" : {
+    "message": "Skip hash checking",
+    "description": "TODO"
+  },
+
+  "optionPausedTitle" : {
+    "message": "Start paused",
+    "description": "TODO"
+  },
+
+  "optionRootFolderTitle" : {
+    "message": "Add root folder",
+    "description": "TODO"
+  },
+
+  "optionRenameTitle" : {
+    "message": "Rename torrent",
+    "description": "TODO"
+  },
+
+  "optionRenamePlaceholder" : {
+    "message": "",
+    "description": "TODO"
+  },
+
+  "optionUpLimitTitle" : {
+    "message": "Set upload speed limit (0 for no limit)",
+    "description": "TODO"
+  },
+
+  "optionDlLimitTitle" : {
+    "message": "Set download speed limit (0 for no limit)",
+    "description": "TODO"
+  },
+
+  "optionSeqDlTitle" : {
+    "message": "Enable sequential download",
+    "description": "TODO"
+  },
+
+  "optionFirstLastPiecePrioTitle" : {
+    "message": "Prioritize download first last piece",
+    "description": "TODO"
+  },
+
+  "optionTrue" : {
+    "message": "True",
+    "description": "General option: true"
+  },
+
+  "optionFalse" : {
+    "message": "False",
+    "description": "General option: false"
+  },
+
+  "optionUnset" : {
+    "message": "Unset",
+    "description": "General option: unset"
+  },
+
+  "optionButtonSave": {
+    "message": "Save",
+    "description": "Save button on option page."
+  },
+
+  "generalLabelBps": {
+    "message": "bytes/s",
+    "description": "General label for bytes per second"
+  }
+}
