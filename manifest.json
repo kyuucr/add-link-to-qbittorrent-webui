@@ -5,6 +5,12 @@
     "version": "1",
     "homepage_url": "https://github.com/kyuucr/add-link-to-qbittorrent-webui",
     "default_locale": "en",
+    "applications": {
+        "gecko": {
+            "id": "{bb20a766-c3c7-4765-b9d2-4cc891ecd172}",
+            "strict_min_version": "48.0"
+        }
+    },
     "background": {
         "scripts": [
             "background.js"
