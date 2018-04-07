@@ -39,6 +39,11 @@
     "description": "Error message when login cookie is not found."
   },
 
+  "errorCookieExpired": {
+    "message": "Authentication is expired, opening WebUI...",
+    "description": "Error message when login cookie is expired."
+  },
+
   "optionQbtUrlTitle": {
     "message": "qBittorrent address",
     "description": "Title for qBittorrent address option."

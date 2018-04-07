@@ -44,7 +44,6 @@ var doPost = function (url, tabUrl) {
             for (var cookie of cookies) {
                 cookiesStr += cookie.name + "=" + cookie.value + ";";
             }
-            // console.log("Cookie string", cookiesStr);
 
             var formData = new FormData();
 
@@ -67,7 +66,10 @@ var doPost = function (url, tabUrl) {
             req.withCredentials = true;
             req.addEventListener("load", function() {
                 console.log(req.status, req.statusText);
-                createNotification(req.responseText ? req.responseText : (req.status + " " + req.statusText));
+                createNotification(req.responseText ? req.responseText : req.status === 403 ? browser.i18n.getMessage("errorCookieExpired") : (req.status + " " + req.statusText));
+                if (!req.responseText && req.status === 403) {
+                    browser.tabs.create({ url: options.qbtUrl, active: true });
+                }
             });
             req.addEventListener("error", function() {
                 console.log("XMLHttpRequest error occured");
