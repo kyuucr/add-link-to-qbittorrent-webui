@@ -35,7 +35,7 @@
   },
 
   "errorNoCookie": {
-    "message": "Cannot find credentials, please login.",
+    "message": "Cannot find credentials, opening WebUI...",
     "description": "Error message when login cookie is not found."
   },
 
