@@ -24,12 +24,30 @@
       </colgroup>
       <tbody>
         <tr>
+          <td><label data-i18n="optionProfileTitle" for="profile"></label></td>
+          <td>
+            <select id="profile" name="profile">
+              <option value="defaultProfileHopeNobodyUseThisName" data-i18n="optionDefault" selected></option>
+              <option value="newProfileHopeNobodyUseThisName" data-i18n="optionNew"></option>
+            </select>
+            <input type="text" id="profileName" name="profileName" style="width: 75%; display: none"
+              data-i18n="optionProfileNamePlaceholder|placeholder">
+          </td>
+        </tr>
+        <tr>
           <td><label data-i18n="optionQbtUrlTitle" for="qbtUrl"></label></td>
           <td>
             <input type="text" id="qbtUrl" name="qbtUrl" style="width: 100%"
               data-i18n="optionQbtUrlPlaceholder|placeholder">
           </td>
         </tr>
+        <!--tr>
+          <td><label data-i18n="optionSiteRegexTitle" for="siteRegex"></label></td>
+          <td>
+            <input type="text" id="siteRegex" name="siteRegex" style="width: 100%"
+              data-i18n="optionSiteRegexPlaceholder|placeholder" value="*" disabled>
+          </td>
+        </tr-->
         <tr>
           <td><label data-i18n="optionSavepathTitle" for="savepath"></label></td>
           <td>
@@ -118,6 +136,7 @@
       </tbody>
     </table>
     <button data-i18n="optionButtonSave" type="submit"></button>
+    <button data-i18n="optionButtonDeleteProfile" id="optionButtonDeleteProfile" type="button"></button>
   </form>
   <script src="options.js"></script>
 </body>

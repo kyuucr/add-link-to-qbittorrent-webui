@@ -54,6 +54,26 @@
     "description": "Placeholder for qBittorrent address input."
   },
 
+  "optionProfileTitle" : {
+    "message": "Profile",
+    "description": "Title for profile option."
+  },
+
+  "optionProfileNamePlaceholder" : {
+    "message": "Add new profile name here, mind that it will be uneditable after saved",
+    "description": "Placeholder for new profile name input."
+  },
+
+  "optionSiteRegexTitle" : {
+    "message": "Site address regex",
+    "description": "Title for site regex option."
+  },
+
+  "optionSiteRegexPlaceholder" : {
+    "message": "e.g., http(s?):\\/\\/ubuntu\\.com",
+    "description": "Placeholder for site regex option."
+  },
+
   "optionSavepathTitle" : {
     "message": "Save path",
     "description": "TODO"
@@ -134,9 +154,24 @@
     "description": "General option: unset"
   },
 
+  "optionDefault" : {
+    "message": "Default",
+    "description": "General option: default"
+  },
+
+  "optionNew" : {
+    "message": "Add new ...",
+    "description": "General option: new"
+  },
+
   "optionButtonSave": {
     "message": "Save",
     "description": "Save button on option page."
+  },
+
+  "optionButtonDeleteProfile": {
+    "message": "Delete Profile",
+    "description": "Delete Profile button on option page."
   },
 
   "generalLabelBps": {
