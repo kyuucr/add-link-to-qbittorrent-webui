@@ -181,7 +181,19 @@ document.querySelector("#optionButtonDeleteProfile").addEventListener("click", d
 // ----------------- Internationalization ------------------
 for (let node of document.querySelectorAll('[data-i18n]')) {
   let [text, attr] = node.dataset.i18n.split('|');
-  text = chrome.i18n.getMessage(text);
-  attr ? node[attr] = text : node.appendChild(document.createTextNode(text));
+  // Special case: paragraph with link
+  if (text === "optionHeaderDisclaimerText") {
+    let [ prefix, suffix ] = chrome.i18n.getMessage(text).split("#link");
+    let linkUrl = chrome.i18n.getMessage(text + "Link");
+    let link = document.createElement("a");
+    link.href = linkUrl;
+    link.text = linkUrl;
+    node.appendChild(document.createTextNode(prefix));
+    node.appendChild(link);
+    node.appendChild(document.createTextNode(suffix));
+  } else {
+    text = chrome.i18n.getMessage(text);
+    attr ? node[attr] = text : node.appendChild(document.createTextNode(text));
+  }
 }
 // ----------------- /Internationalization -----------------

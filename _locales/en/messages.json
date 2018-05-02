@@ -44,6 +44,26 @@
     "description": "Error message when login cookie is expired."
   },
 
+  "optionHeaderDisclaimerTitle": {
+    "message": "DISCLAIMER",
+    "description": "Title for disclaimer header."
+  },
+
+  "optionHeaderDisclaimerText": {
+    "message": "This extension needs to use third-party cookie setting for authentication. The \"Accept Third-Party Cookies\" option must be set as \"Always\" or \"From visited\". Setting it to \"Never\" will break the authentication process. Please refer to #link for instructions on how to modify this setting.",
+    "description": "Text for disclaimer. Use #link for link text substitution."
+  },
+
+  "optionHeaderDisclaimerTextLink": {
+    "message": "https://support.mozilla.org/id/kb/disable-third-party-cookies",
+    "description": "Link for third-party cookie setting instructions, will subtitute #link. MUST NOT BE CHANGED UNLESS LINK IS DEAD/IRRELEVANT."
+  },
+
+  "optionHeaderOptionsTitle": {
+    "message": "Options (unset for server default)",
+    "description": "Title for option header."
+  },
+
   "optionQbtUrlTitle": {
     "message": "qBittorrent address",
     "description": "Title for qBittorrent address option."
