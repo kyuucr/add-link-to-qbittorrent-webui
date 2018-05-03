@@ -55,7 +55,7 @@ browser.storage.local.get().then(results => {
       results = results[0];
     }
     for (const key in results) {
-        let [ keyName, profileName ] = key.split("-");
+        let [ keyName, profileName ] = key.split(/-(.+)/);
         if (profileName === undefined) {
             profileName = "Default";
         }
@@ -74,7 +74,7 @@ browser.storage.onChanged.addListener((changes, areaName) => {
     if (areaName === "local") {
         let deleteKeys = [];
         for (let key in changes) {
-            let [ keyName, profileName ] = key.split("-");
+            let [ keyName, profileName ] = key.split(/-(.+)/);
             if (profileName === undefined) {
                 profileName = "Default";
             }
@@ -155,7 +155,7 @@ var doPost = function (url, profile, tabUrl) {
 
 // On context menu item clicked
 browser.contextMenus.onClicked.addListener((info, tab) => {
-    let profileName = info.menuItemId.split("-")[1];
+    let profileName = info.menuItemId.split(/-(.+)/)[1];
     console.log("Add " + info.linkUrl + " now with profile: " + profileName);
 
     // Check if qbtUrl set

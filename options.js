@@ -67,7 +67,7 @@ function restoreOptions(profile) {
     // qbtUrl option
     for (const key in result) {
       let keyName, profileName;
-      [ keyName, profileName ] = key.split("-");
+      [ keyName, profileName ] = key.split(/-(.+)/);
       // Set only selected profile
       if (profile === profileName) {
         switch (keyName) {
