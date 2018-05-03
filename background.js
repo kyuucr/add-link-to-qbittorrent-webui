@@ -1,6 +1,6 @@
 // Create root context menu item
 browser.contextMenus.create({
-    id: "add-link-to-qbt",
+    id: "root-Default",
     title: browser.i18n.getMessage("contextItemTitle"),
     icons: {
         "16": browser.extension.getURL("icons/qbittorrent-tray.svg")
@@ -8,11 +8,63 @@ browser.contextMenus.create({
     contexts: ["link"]
 });
 
-var options = {};
+// Generate context menu item from a window
+var generateItem = function (profileName) {
+    let item = {
+        id: "child-" + profileName,
+        title: profileName,
+        contexts: ["link"],
+        parentId: "root-Default"
+    };
+    return item;
+}
+
+var options = new Proxy({}, {
+    set: function(target, prop, value) {
+        console.log("Add submenu for new profile: " + prop);
+        switch (Object.keys(target).length) {
+            case (0):       // Initialization
+                break;
+            case (1):       // Second item
+                browser.contextMenus.create(generateItem("Default"));
+            default:        // Item 3++
+                browser.contextMenus.create(generateItem(prop));
+                break;
+        }
+        return Reflect.set(...arguments);
+    },
+    get: function(target, prop, value) {    // Having this removes warning
+        return Reflect.get(...arguments);
+    },
+    deleteProperty: function(target, prop) {
+        console.log("Deleting submenu for profile" + prop);
+        switch (Object.keys(target).length) {
+            case (2):       // Last 2 items
+                browser.contextMenus.remove("child-Default");
+            default:        // N items > 2
+                browser.contextMenus.remove("child-" + prop);
+                break;
+        }
+        return Reflect.deleteProperty(...arguments);
+    }
+});
 
 browser.storage.local.get().then(results => {
-    options = results;
-    if (!options.qbtUrl) {
+    // Fix for FF < 52
+    if (results.length > 0) {
+      results = results[0];
+    }
+    for (const key in results) {
+        let [ keyName, profileName ] = key.split("-");
+        if (profileName === undefined) {
+            profileName = "Default";
+        }
+        if (!Object.keys(options).includes(profileName)) {
+            options[profileName] = {};
+        }
+        options[profileName][keyName] = results[key];
+    }
+    if (!options.Default.qbtUrl) {
         browser.tabs.create({ url: browser.extension.getURL("options.html"), active: true });
         createNotification(browser.i18n.getMessage("errorNoQbtURL"));
     }
@@ -20,8 +72,26 @@ browser.storage.local.get().then(results => {
 
 browser.storage.onChanged.addListener((changes, areaName) => {
     if (areaName === "local") {
-        for (var key in changes) {
-            options[key] = changes[key].newValue;
+        let deleteKeys = [];
+        for (let key in changes) {
+            let [ keyName, profileName ] = key.split("-");
+            if (profileName === undefined) {
+                profileName = "Default";
+            }
+            if (!Object.keys(options).includes(profileName)) {
+                options[profileName] = {};
+            }
+            if (changes[key].newValue === undefined) {
+                delete options[profileName][keyName];
+                if (!deleteKeys.includes(profileName)) {
+                    deleteKeys.push(profileName);
+                }
+            } else {
+                options[profileName][keyName] = changes[key].newValue;
+            }
+        }
+        for (let profileName of deleteKeys) {
+            delete options[profileName];
         }
     }
 });
@@ -35,8 +105,8 @@ var createNotification = function (message) {
     });
 };
 
-var doPost = function (url, tabUrl) {
-    console.log("Do post url: " + url + "; qbtUrl: " + options.qbtUrl + "; tabUrl: " + tabUrl);
+var doPost = function (url, profile, tabUrl) {
+    console.log("Do post url: " + url + "; qbtUrl: " + options[profile].qbtUrl + "; tabUrl: " + tabUrl);
 
     if (url.match(/^https?:\/\/|magnet:|bt:\/\/bc\//)) {
         browser.cookies.getAll({url: tabUrl}).then(cookies => {
@@ -50,25 +120,25 @@ var doPost = function (url, tabUrl) {
             // Populate FormData
             formData.append("urls", url);
             formData.append("cookie", cookiesStr);
-            if (options.savepath)           { formData.append("savepath", options.savepath); }
-            if (options.category)           { formData.append("category", options.category); }
-            if (options.skipChecking)       { formData.append("skip_checking", options.skipChecking); }
-            if (options.paused)             { formData.append("paused", options.paused); }
-            if (options.rootFolder)         { formData.append("root_folder", options.rootFolder); }
-            if (options.rename)             { formData.append("rename", options.rename); }
-            if (options.upLimit)            { formData.append("upLimit", options.upLimit); }
-            if (options.dlLimit)            { formData.append("dlLimit", options.dlLimit); }
-            if (options.sequentialDownload) { formData.append("sequentialDownload", options.sequentialDownload); }
-            if (options.firstLastPiecePrio) { formData.append("firstLastPiecePrio", options.firstLastPiecePrio); }
+            if (options[profile].savepath)           { formData.append("savepath", options[profile].savepath); }
+            if (options[profile].category)           { formData.append("category", options[profile].category); }
+            if (options[profile].skipChecking)       { formData.append("skip_checking", options[profile].skipChecking); }
+            if (options[profile].paused)             { formData.append("paused", options[profile].paused); }
+            if (options[profile].rootFolder)         { formData.append("root_folder", options[profile].rootFolder); }
+            if (options[profile].rename)             { formData.append("rename", options[profile].rename); }
+            if (options[profile].upLimit)            { formData.append("upLimit", options[profile].upLimit); }
+            if (options[profile].dlLimit)            { formData.append("dlLimit", options[profile].dlLimit); }
+            if (options[profile].sequentialDownload) { formData.append("sequentialDownload", options[profile].sequentialDownload); }
+            if (options[profile].firstLastPiecePrio) { formData.append("firstLastPiecePrio", options[profile].firstLastPiecePrio); }
 
             var req = new XMLHttpRequest();
-            req.open("post", options.qbtUrl + (options.qbtUrl.match(/[^\/]$/) ? "/" : "") + "command/download");
+            req.open("post", options[profile].qbtUrl + (options[profile].qbtUrl.match(/[^\/]$/) ? "/" : "") + "command/download");
             req.withCredentials = true;
             req.addEventListener("load", function() {
                 console.log(req.status, req.statusText);
                 createNotification(req.responseText ? req.responseText : req.status === 403 ? browser.i18n.getMessage("errorCookieExpired") : (req.status + " " + req.statusText));
                 if (!req.responseText && req.status === 403) {
-                    browser.tabs.create({ url: options.qbtUrl, active: true });
+                    browser.tabs.create({ url: options[profile].qbtUrl, active: true });
                 }
             });
             req.addEventListener("error", function() {
@@ -85,22 +155,23 @@ var doPost = function (url, tabUrl) {
 
 // On context menu item clicked
 browser.contextMenus.onClicked.addListener((info, tab) => {
-    console.log("Add " + info.linkUrl + " now");
+    let profileName = info.menuItemId.split("-")[1];
+    console.log("Add " + info.linkUrl + " now with profile: " + profileName);
 
     // Check if qbtUrl set
-    if (!options.qbtUrl) {
+    if (!options[profileName].qbtUrl) {
         browser.tabs.create({ url: browser.extension.getURL("options.html"), active: true });
         createNotification(browser.i18n.getMessage("errorNoQbtURL"));
     } else {
         // Check for cookie
-        browser.cookies.get({ name: "SID", url: options.qbtUrl.replace(/:[0-9]+\/?$/, "") }).then((cookie) => {
+        browser.cookies.get({ name: "SID", url: options[profileName].qbtUrl.replace(/:[0-9]+\/?$/, "") }).then((cookie) => {
             if (cookie !== null && cookie.value) {
-                doPost(info.linkUrl, tab.url);
+                doPost(info.linkUrl, profileName, tab.url);
             } else {
                 // No cookie, open page
                 console.log("Cannot find cookie, opening web ui..." );
                 createNotification(browser.i18n.getMessage("errorNoCookie"));
-                browser.tabs.create({ url: options.qbtUrl, active: true });
+                browser.tabs.create({ url: options[profileName].qbtUrl, active: true });
             }
         });
     }
