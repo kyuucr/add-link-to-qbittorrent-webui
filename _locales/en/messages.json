@@ -84,6 +84,11 @@
     "description": "Placeholder for new profile name input."
   },
 
+  "optionHideProfileTitle" : {
+    "message": "Hide profile from submenu",
+    "description": "Title for hide profile option."
+  },
+
   "optionSiteRegexTitle" : {
     "message": "Site address regex",
     "description": "Title for site regex option."

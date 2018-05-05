@@ -42,6 +42,9 @@ function saveOptions(e) {
   formData.delete("profile");
   formData.delete("profileName");
 
+  // For checkbox entries
+  optionData["hideProfile" + profileSuffix] = "off";
+
   // Map FormData to option entry
   for (const entry of formData) {
     optionData[entry[0] + profileSuffix] = entry[1];
@@ -71,6 +74,9 @@ function restoreOptions(profile) {
       // Set only selected profile
       if (profile === profileName) {
         switch (keyName) {
+          case "hideProfile":
+            document.querySelector("input[name=" + keyName + "]").checked = (result[key] === "on" ? true : false);
+            break;
           case "skipChecking":
           case "paused":
           case "rootFolder":
@@ -118,23 +124,27 @@ function clear() {
 // Reload input texts on profile box change
 function profileChanged(event) {
   let profileName = document.querySelector("#profileName");
+  let hideProfile = document.querySelector("#hideProfile");
   // TODO: Enable siteRegex once implemented
   // let siteRegex = document.querySelector("#siteRegex");
 
   switch (event.target.value) {
     case NEW_PROFILE_ID:
       profileName.style.display = "inherit";
+      hideProfile.disabled = false;
       // siteRegex.disabled = false;
       clear();
       break;
     case DEFAULT_PROFILE_ID:
       profileName.style.display = "none";
+      hideProfile.disabled = true;
       // siteRegex.disabled = true;
       // siteRegex.value = "*";
       restoreOptions();
       break;
     default:
       profileName.style.display = "none";
+      hideProfile.disabled = false;
       // siteRegex.disabled = false;
       restoreOptions(event.target.value);
       break;
@@ -167,6 +177,9 @@ function deleteProfile() {
         profile.remove(profile.selectedIndex);
         profile.selectedIndex = 0;
         // Change event not fired
+        hideProfile.disabled = true;
+        // siteRegex.disabled = true;
+        // siteRegex.value = "*";
         restoreOptions();
       })
     });
