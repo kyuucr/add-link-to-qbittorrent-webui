@@ -8,7 +8,7 @@ var profiles = new Proxy([], {
 
     // Filter out length property and duplicates
     if (prop !== "length" && profileBox.namedItem(value) === null){
-      console.log("adding new profile: " + value);
+      console.log("Adding new profile on option page: " + value);
       let opt = document.createElement("option");
       opt.id = value;
       opt.name = value;
@@ -75,7 +75,7 @@ function restoreOptions(profile) {
       if (profile === profileName) {
         switch (keyName) {
           case "hideProfile":
-            document.querySelector("input[name=" + keyName + "]").checked = (result[key] === "on" ? true : false);
+            document.querySelector("input[name=" + keyName + "]").checked = (result[key] === "on");
             break;
           case "skipChecking":
           case "paused":
@@ -113,7 +113,9 @@ function domLoaded() {
 
 function clear() {
   for (let node of document.querySelectorAll("select:not([name=profile]),input:not([name=qbtUrl])")) {
-    if (node.type == "number") {
+    if (node.type === "checkbox") {
+      node.checked = false;
+    } else if (node.type === "number") {
       node.value = "0";
     } else {
       node.value = "";
