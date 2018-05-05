@@ -19,32 +19,50 @@ var generateItem = function (profileName) {
     return item;
 }
 
-var options = new Proxy({}, {
-    set: function(target, prop, value) {
-        console.log("Add submenu for new profile: " + prop);
-        switch (Object.keys(target).length) {
+var numOfSubmenu = 0, submenuContainer = [];
+
+var addSubmenuAction = function(profile) {
+    if (!submenuContainer.includes(profile)) {
+        console.log("Add submenu for new profile: " + profile);
+        switch (numOfSubmenu) {
             case (0):       // Initialization
                 break;
             case (1):       // Second item
                 browser.contextMenus.create(generateItem("Default"));
             default:        // Item 3++
-                browser.contextMenus.create(generateItem(prop));
+                browser.contextMenus.create(generateItem(profile));
                 break;
         }
+        ++numOfSubmenu;
+        submenuContainer.push(profile);
+    }
+};
+
+var deleteSubmenuAction = function(profile) {
+    if (submenuContainer.includes(profile)) {
+        console.log("Deleting submenu for profile: " + profile);
+        switch (numOfSubmenu) {
+            case (2):       // Last 2 items
+                browser.contextMenus.remove("child-Default");
+            default:        // N items > 2
+                browser.contextMenus.remove("child-" + profile);
+                break;
+        }
+        --numOfSubmenu;
+        submenuContainer.splice(submenuContainer.indexOf(profile), 1);
+    }
+};
+
+var options = new Proxy({}, {
+    set: function(target, prop, value) {
+        addSubmenuAction(prop);
         return Reflect.set(...arguments);
     },
     get: function(target, prop, value) {    // Having this removes warning
         return Reflect.get(...arguments);
     },
     deleteProperty: function(target, prop) {
-        console.log("Deleting submenu for profile" + prop);
-        switch (Object.keys(target).length) {
-            case (2):       // Last 2 items
-                browser.contextMenus.remove("child-Default");
-            default:        // N items > 2
-                browser.contextMenus.remove("child-" + prop);
-                break;
-        }
+        deleteSubmenuAction(prop);
         return Reflect.deleteProperty(...arguments);
     }
 });
@@ -61,6 +79,14 @@ browser.storage.local.get().then(results => {
         }
         if (!Object.keys(options).includes(profileName)) {
             options[profileName] = {};
+        }
+        // Special case: hide profile from submenu
+        if (keyName === "hideProfile") {
+            if (results[key] === "on") {
+                deleteSubmenuAction(profileName);
+            } else {
+                addSubmenuAction(profileName);
+            }
         }
         options[profileName][keyName] = results[key];
     }
@@ -87,6 +113,14 @@ browser.storage.onChanged.addListener((changes, areaName) => {
                     deleteKeys.push(profileName);
                 }
             } else {
+                // Special case: hide profile from submenu
+                if (keyName === "hideProfile") {
+                    if (changes[key].newValue === "on") {
+                        deleteSubmenuAction(profileName);
+                    } else {
+                        addSubmenuAction(profileName);
+                    }
+                }
                 options[profileName][keyName] = changes[key].newValue;
             }
         }
