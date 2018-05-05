@@ -64,7 +64,7 @@ browser.storage.local.get().then(results => {
         }
         options[profileName][keyName] = results[key];
     }
-    if (!options.Default.qbtUrl) {
+    if (!options.Default || !options.Default.qbtUrl) {
         browser.tabs.create({ url: browser.extension.getURL("options.html"), active: true });
         createNotification(browser.i18n.getMessage("errorNoQbtURL"));
     }
