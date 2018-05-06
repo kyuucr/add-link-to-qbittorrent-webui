@@ -94,6 +94,11 @@
     "description": "Title for site regex option."
   },
 
+  "optionSiteRegexTooltip" : {
+    "message": "Setting this option will trigger regex matching when sending link using Default profile. If the Tab URL matched the regex pattern, the associated profile will be used instead of Default profile. Unset to disable.",
+    "description": "Tooltip for site regex option."
+  },
+
   "optionSiteRegexPlaceholder" : {
     "message": "e.g., https?:\\/\\/.*\\.?ubuntu\\.com",
     "description": "Placeholder for site regex option."
@@ -145,13 +150,23 @@
   },
 
   "optionUpLimitTitle" : {
-    "message": "Set upload speed limit (0 for no limit)",
+    "message": "Set upload speed limit",
     "description": "TODO"
   },
 
+  "optionUpLimitTooltip" : {
+    "message": "Set 0 for no limit",
+    "description": "Tooltip for upload limit option."
+  },
+
   "optionDlLimitTitle" : {
-    "message": "Set download speed limit (0 for no limit)",
+    "message": "Set download speed limit",
     "description": "TODO"
+  },
+
+  "optionDlLimitTooltip" : {
+    "message": "Set 0 for no limit",
+    "description": "Tooltip for download limit option."
   },
 
   "optionSeqDlTitle" : {

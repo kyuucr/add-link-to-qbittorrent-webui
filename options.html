@@ -3,6 +3,37 @@
 <html>
   <head>
     <meta charset="utf-8">
+    <style type="text/css">
+      /* Tooltip starts here */
+      .tooltip {
+        display: inline-block;
+        position: relative;
+        margin-left: 0.2rem;
+      }
+      .tooltip img {
+        width: 1.2rem;
+        height: 1.2rem;
+      }
+
+      /* Tooltip text */
+      .tooltip .tooltiptext {
+        visibility: hidden;
+        width: 200px;
+        background-color: black;
+        color: #fff;
+        text-align: center;
+        padding: 5px 10px;
+        border-radius: 6px;
+        position: absolute;
+        z-index: 1;
+        left: 115%;
+      }
+
+      /* Show the tooltip text when you mouse over the tooltip container */
+      .tooltip:hover .tooltiptext {
+        visibility: visible;
+      }
+    </style>
   </head>
 
 <body>
@@ -39,7 +70,13 @@
           </td>
         </tr>
         <tr>
-          <td><label data-i18n="optionSiteRegexTitle" for="siteRegex"></label></td>
+          <td>
+            <label data-i18n="optionSiteRegexTitle" for="siteRegex">
+              <div class="tooltip"><img src="icons/question-circle.svg">
+                <span class="tooltiptext" data-i18n="optionSiteRegexTooltip"></span>
+              </div>
+            </label>
+          </td>
           <td>
             <input type="text" id="siteRegex" name="siteRegex" style="width: 100%"
               data-i18n="optionSiteRegexPlaceholder|placeholder" value="*" disabled>
@@ -97,14 +134,26 @@
           </td>
         </tr>
         <tr>
-          <td><label data-i18n="optionUpLimitTitle" for="upLimit"></label></td>
+          <td>
+            <label data-i18n="optionUpLimitTitle" for="upLimit">
+              <div class="tooltip"><img src="icons/question-circle.svg">
+                <span class="tooltiptext" data-i18n="optionUpLimitTooltip"></span>
+              </div>
+            </label>
+          </td>
           <td>
             <input type="number" id="upLimit" name="upLimit" value="0">
             <label data-i18n="generalLabelBps"></label>
           </td>
         </tr>
         <tr>
-          <td><label data-i18n="optionDlLimitTitle" for="dlLimit"></label></td>
+          <td>
+            <label data-i18n="optionDlLimitTitle" for="dlLimit">
+              <div class="tooltip"><img src="icons/question-circle.svg">
+                <span class="tooltiptext" data-i18n="optionDlLimitTooltip"></span>
+              </div>
+            </label>
+          </td>
           <td>
             <input type="number" id="dlLimit" name="dlLimit" value="0">
             <label data-i18n="generalLabelBps"></label>
