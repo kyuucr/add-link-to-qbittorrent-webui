@@ -95,7 +95,7 @@
   },
 
   "optionSiteRegexTooltip" : {
-    "message": "Setting this option will trigger regex matching when sending link using Default profile. If the Tab URL matched the regex pattern, the associated profile will be used instead of Default profile. Unset to disable.",
+    "message": "Setting this option for a profile will trigger regex matching when sending link using Default profile. If the Tab URL matched the regex pattern, the associated profile will be used instead of Default profile. Unset to disable.",
     "description": "Tooltip for site regex option."
   },
 
