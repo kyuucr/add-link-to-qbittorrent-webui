@@ -208,7 +208,7 @@ for (let node of document.querySelectorAll('[data-i18n]')) {
     node.appendChild(document.createTextNode(suffix));
   } else {
     text = chrome.i18n.getMessage(text);
-    attr ? node[attr] = text : node.appendChild(document.createTextNode(text));
+    attr ? node[attr] = text : node.insertBefore(document.createTextNode(text), node.firstChild);
   }
 }
 // ----------------- /Internationalization -----------------
