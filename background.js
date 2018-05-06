@@ -88,7 +88,12 @@ browser.storage.local.get().then(results => {
                 addSubmenuAction(profileName);
             }
         }
-        options[profileName][keyName] = results[key];
+        // Special case 2: regex
+        if (keyName === "siteRegex" && changes[key].newValue) {
+            options[profileName][keyName] = new RegExp(results[key]);
+        } else {
+            options[profileName][keyName] = results[key];
+        }
     }
     if (!options.Default || !options.Default.qbtUrl) {
         browser.tabs.create({ url: browser.extension.getURL("options.html"), active: true });
@@ -121,7 +126,12 @@ browser.storage.onChanged.addListener((changes, areaName) => {
                         addSubmenuAction(profileName);
                     }
                 }
-                options[profileName][keyName] = changes[key].newValue;
+                // Special case 2: regex
+                if (keyName === "siteRegex" && changes[key].newValue) {
+                    options[profileName][keyName] = new RegExp(changes[key].newValue);
+                } else {
+                    options[profileName][keyName] = changes[key].newValue;
+                }
             }
         }
         for (let profileName of deleteKeys) {
@@ -190,6 +200,16 @@ var doPost = function (url, profile, tabUrl) {
 // On context menu item clicked
 browser.contextMenus.onClicked.addListener((info, tab) => {
     let profileName = info.menuItemId.split(/-(.+)/)[1];
+
+    // Regex check here
+    if (profileName === "Default") {
+        for (profile of Object.keys(options)) {
+            if (profile !== "Default" && options[profile].siteRegex && options[profile].siteRegex.test(tab.url)) {
+                profileName = profile;
+                break;
+            }
+        }
+    }
     console.log("Add " + info.linkUrl + " now with profile: " + profileName);
 
     // Check if qbtUrl set

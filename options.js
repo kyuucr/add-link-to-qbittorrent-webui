@@ -127,27 +127,26 @@ function clear() {
 function profileChanged(event) {
   let profileName = document.querySelector("#profileName");
   let hideProfile = document.querySelector("#hideProfile");
-  // TODO: Enable siteRegex once implemented
-  // let siteRegex = document.querySelector("#siteRegex");
+  let siteRegex = document.querySelector("#siteRegex");
 
   switch (event.target.value) {
     case NEW_PROFILE_ID:
       profileName.style.display = "inherit";
       hideProfile.disabled = false;
-      // siteRegex.disabled = false;
+      siteRegex.disabled = false;
       clear();
       break;
     case DEFAULT_PROFILE_ID:
       profileName.style.display = "none";
       hideProfile.disabled = true;
-      // siteRegex.disabled = true;
-      // siteRegex.value = "*";
+      siteRegex.disabled = true;
+      siteRegex.value = "*";
       restoreOptions();
       break;
     default:
       profileName.style.display = "none";
       hideProfile.disabled = false;
-      // siteRegex.disabled = false;
+      siteRegex.disabled = false;
       restoreOptions(event.target.value);
       break;
   }
@@ -157,10 +156,11 @@ function profileChanged(event) {
 // - Deleting array entry is complicated, set callback will also be fired
 // - Deletion is one entry at a time
 function deleteProfile() {
-  let profile = document.querySelector("#profile");
-
   // Let's not delete defaults
   if (profile.value !== DEFAULT_PROFILE_ID && profile.value !== NEW_PROFILE_ID) {
+    let profile = document.querySelector("#profile");
+    let hideProfile = document.querySelector("#hideProfile");
+    let siteRegex = document.querySelector("#siteRegex");
 
     // They should implement get query with wildcard
     browser.storage.local.get().then(function(result) {
@@ -180,8 +180,8 @@ function deleteProfile() {
         profile.selectedIndex = 0;
         // Change event not fired
         hideProfile.disabled = true;
-        // siteRegex.disabled = true;
-        // siteRegex.value = "*";
+        siteRegex.disabled = true;
+        siteRegex.value = "*";
         restoreOptions();
       })
     });
