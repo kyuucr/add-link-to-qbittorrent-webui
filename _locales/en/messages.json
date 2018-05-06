@@ -19,6 +19,11 @@
     "description": "Title of general notification."
   },
 
+  "notificationReply": {
+    "message": "WebUI reply: ",
+    "description": "Prefix text of WebUI reply notification."
+  },
+
   "errorXHR": {
     "message": "XMLHttpRequest error occured.",
     "description": "XMLHttpRequest error message."

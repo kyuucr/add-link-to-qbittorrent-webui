@@ -180,7 +180,7 @@ var doPost = function (url, profile, tabUrl) {
             req.withCredentials = true;
             req.addEventListener("load", function() {
                 console.log(req.status, req.statusText);
-                createNotification(req.responseText ? req.responseText : req.status === 403 ? browser.i18n.getMessage("errorCookieExpired") : (req.status + " " + req.statusText));
+                createNotification(req.responseText ? (browser.i18n.getMessage("notificationReply") + req.responseText) : req.status === 403 ? browser.i18n.getMessage("errorCookieExpired") : (req.status + " " + req.statusText));
                 if (!req.responseText && req.status === 403) {
                     browser.tabs.create({ url: options[profile].qbtUrl, active: true });
                 }
