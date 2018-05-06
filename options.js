@@ -1,5 +1,5 @@
 const NEW_PROFILE_ID = "newProfileHopeNobodyUseThisName";
-const DEFAULT_PROFILE_ID = "defaultProfileHopeNobodyUseThisName";
+const DEFAULT_PROFILE_ID = "Default";
 
 // Contains saved profile names except Default
 var profiles = new Proxy([], {
