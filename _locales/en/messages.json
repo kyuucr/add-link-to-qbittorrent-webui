@@ -95,7 +95,7 @@
   },
 
   "optionSiteRegexPlaceholder" : {
-    "message": "e.g., http(s?):\\/\\/ubuntu\\.com",
+    "message": "e.g., https?:\\/\\/.*\\.?ubuntu\\.com",
     "description": "Placeholder for site regex option."
   },
 
