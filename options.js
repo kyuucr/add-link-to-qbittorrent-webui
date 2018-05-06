@@ -147,6 +147,7 @@ function profileChanged(event) {
       profileName.style.display = "none";
       hideProfile.disabled = false;
       siteRegex.disabled = false;
+      siteRegex.value = "";
       restoreOptions(event.target.value);
       break;
   }
