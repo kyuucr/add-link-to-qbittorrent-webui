@@ -149,7 +149,7 @@ var createNotification = function (message) {
     });
 };
 
-var doPost = function (url, profile, tabUrl) {
+var doPost = function (url, profile, tabUrl, isRegex) {
     console.log("Do post url: " + url + "; qbtUrl: " + options[profile].qbtUrl + "; tabUrl: " + tabUrl);
 
     if (url.match(/^https?:\/\/|magnet:|bt:\/\/bc\//)) {
@@ -180,7 +180,11 @@ var doPost = function (url, profile, tabUrl) {
             req.withCredentials = true;
             req.addEventListener("load", function() {
                 console.log(req.status, req.statusText);
-                createNotification(req.responseText ? (browser.i18n.getMessage("notificationReply") + req.responseText) : req.status === 403 ? browser.i18n.getMessage("errorCookieExpired") : (req.status + " " + req.statusText));
+                let reply = req.responseText ? (browser.i18n.getMessage("notificationReply") + req.responseText) : req.status === 403 ? browser.i18n.getMessage("errorCookieExpired") : (req.status + " " + req.statusText);
+                if (isRegex) {
+                    reply += "\n" + browser.i18n.getMessage("notificationProfile").replace("#profile", profile);
+                }
+                createNotification(reply);
                 if (!req.responseText && req.status === 403) {
                     browser.tabs.create({ url: options[profile].qbtUrl, active: true });
                 }
@@ -202,10 +206,12 @@ browser.contextMenus.onClicked.addListener((info, tab) => {
     let profileName = info.menuItemId.split(/-(.+)/)[1];
 
     // Regex check here
+    let isRegex = false;
     if (profileName === "Default") {
         for (profile of Object.keys(options)) {
             if (profile !== "Default" && options[profile].siteRegex && options[profile].siteRegex.test(tab.url)) {
                 profileName = profile;
+                isRegex = true;
                 break;
             }
         }
@@ -220,7 +226,7 @@ browser.contextMenus.onClicked.addListener((info, tab) => {
         // Check for cookie
         browser.cookies.get({ name: "SID", url: options[profileName].qbtUrl.replace(/:[0-9]+\/?$/, "") }).then((cookie) => {
             if (cookie !== null && cookie.value) {
-                doPost(info.linkUrl, profileName, tab.url);
+                doPost(info.linkUrl, profileName, tab.url, isRegex);
             } else {
                 // No cookie, open page
                 console.log("Cannot find cookie, opening web ui..." );

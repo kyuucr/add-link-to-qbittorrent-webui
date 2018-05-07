@@ -24,6 +24,11 @@
     "description": "Prefix text of WebUI reply notification."
   },
 
+  "notificationProfile": {
+    "message": "Sent using #profile profile.",
+    "description": "Notification text of informing what profile was used. #profile will be substituted with the profile name"
+  },
+
   "errorXHR": {
     "message": "XMLHttpRequest error occured.",
     "description": "XMLHttpRequest error message."
