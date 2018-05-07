@@ -115,8 +115,6 @@ function clear() {
   for (let node of document.querySelectorAll("select:not([name=profile]),input:not([name=qbtUrl])")) {
     if (node.type === "checkbox") {
       node.checked = false;
-    } else if (node.type === "number") {
-      node.value = "0";
     } else {
       node.value = "";
     }
