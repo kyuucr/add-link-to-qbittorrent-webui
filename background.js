@@ -89,7 +89,7 @@ browser.storage.local.get().then(results => {
             }
         }
         // Special case 2: regex
-        if (keyName === "siteRegex" && changes[key].newValue) {
+        if (keyName === "siteRegex" && results[key]) {
             options[profileName][keyName] = new RegExp(results[key]);
         } else {
             options[profileName][keyName] = results[key];
