@@ -1,3 +1,5 @@
+### I have modified this extension to show a button in the toolbar that opens the URL defined in the "Default" profile. 
+
 # Add Link to qBittorrent WebUI
 
 Add torrent link directly to a local (or even public? haven't tested that yet)
@@ -17,5 +19,3 @@ authentication. The "Accept Third-Party Cookies" option must be set as "Always"
 or "From visited". Setting it to "Never" will break the authentication process.
 Please refer to https://support.mozilla.org/id/kb/disable-third-party-cookies
 for instructions on how to modify the setting.
-
-Firefox AMO link: https://addons.mozilla.org/en-US/firefox/addon/add-link-to-qbittorrent-webui/
