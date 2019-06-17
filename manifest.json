@@ -23,7 +23,7 @@
 		"browser_action": {
 			"browser_style": true,
 			"default_icon": "icons/qbittorrent-tray.svg",
-			"default_title": "qBittorrent"
+			"default_title": "qBittorrent WebUI"
 		},
     "permissions": [
         "http://*/*",
