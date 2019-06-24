@@ -2,9 +2,6 @@
 browser.contextMenus.create({
     id: "root-Default",
     title: browser.i18n.getMessage("contextItemTitle"),
-    icons: {
-        "16": browser.extension.getURL("icons/qbittorrent-tray.svg")
-    },
     contexts: ["link"]
 });
 
