@@ -1,5 +1,3 @@
-### I have modified this extension to show a button in the toolbar that opens the URL defined in the "Default" profile. 
-
 # Add Link to qBittorrent WebUI
 
 Add torrent link directly to a local (or even public? haven't tested that yet)
@@ -10,6 +8,7 @@ __Features:__
 * Sending HTTP, Magnet, or BitComet Tracker links with full support of qBt WebUI's options
 * Multiple profiles, each with its own option. You can even set different WebUI address!
 * Regex matching for profile: Set regex string on a profile, and when using Default profile, Tab URL will be matched to the regex. If it's matched, the associated profile will be used instead of Default profile. Combine with hide profile option to automate link sending!
+* Toolbar button to open the URL defined in the "Default" profile
 
 __Disclaimer:__ the author is not in any way affiliated with qBittorrent development
 team.
@@ -19,3 +18,8 @@ authentication. The "Accept Third-Party Cookies" option must be set as "Always"
 or "From visited". Setting it to "Never" will break the authentication process.
 Please refer to https://support.mozilla.org/id/kb/disable-third-party-cookies
 for instructions on how to modify the setting.
+
+__Contributors:__
+* simonbcn
+
+Firefox AMO link: https://addons.mozilla.org/en-US/firefox/addon/add-link-to-qbittorrent-webui/
