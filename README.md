@@ -1,8 +1,8 @@
 # Add Link to qBittorrent WebUI
 
-Add torrent link directly to a local (or even public? haven't tested that yet)
-qBittorrent WebUI from context menu. Supports HTTP, Magnet, and BitComet Tracker
-links, and includes options from the WebUI API.
+Add torrent link directly to a local and public qBittorrent WebUI from context
+menu. Supports HTTP, Magnet, and BitComet Tracker links, and includes options
+from the WebUI API.
 
 __Features:__
 * Sending HTTP, Magnet, or BitComet Tracker links with full support of qBt WebUI's options
