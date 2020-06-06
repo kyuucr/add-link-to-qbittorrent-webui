@@ -114,6 +114,16 @@
     "description": "Placeholder for site regex option."
   },
 
+  "optionLegacyAPITitle" : {
+    "message": "Use legacy API?",
+    "description": "TODO"
+  },
+
+  "optionLegacyAPITooltip" : {
+    "message": "Enable if qBt version < 4.1",
+    "description": "TODO"
+  },
+
   "optionSavepathTitle" : {
     "message": "Save path",
     "description": "TODO"
@@ -177,6 +187,11 @@
   "optionDlLimitTooltip" : {
     "message": "Set 0 for no limit",
     "description": "Tooltip for download limit option."
+  },
+
+  "optionAutoTMMTitle" : {
+    "message": "Enable Automatic Torrent Management",
+    "description": "TODO"
   },
 
   "optionSeqDlTitle" : {

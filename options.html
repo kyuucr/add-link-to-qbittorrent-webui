@@ -71,6 +71,16 @@
         </tr>
         <tr>
           <td>
+            <label data-i18n="optionLegacyAPITitle" for="legacyAPI">
+              <div class="tooltip"><img src="icons/question-circle.svg">
+                <span class="tooltiptext" data-i18n="optionLegacyAPITooltip"></span>
+              </div>
+            </label>
+          </td>
+          <td><input type="checkbox" id="legacyAPI" name="legacyAPI"></td>
+        </tr>
+        <tr>
+          <td>
             <label data-i18n="optionSiteRegexTitle" for="siteRegex">
               <div class="tooltip"><img src="icons/question-circle.svg">
                 <span class="tooltiptext" data-i18n="optionSiteRegexTooltip"></span>
@@ -157,6 +167,16 @@
           <td>
             <input type="number" id="dlLimit" name="dlLimit">
             <label data-i18n="generalLabelBps"></label>
+          </td>
+        </tr>
+        <tr>
+          <td><label data-i18n="optionAutoTMMTitle" for="autoTMM"></label></td>
+          <td>
+            <select id="autoTMM" name="autoTMM">
+              <option value="" selected></option>
+              <option value="true" data-i18n="optionTrue"></option>
+              <option value="false" data-i18n="optionFalse"></option>
+            </select>
           </td>
         </tr>
         <tr>

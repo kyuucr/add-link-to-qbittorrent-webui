@@ -18,6 +18,11 @@ var generateItem = function (profileName) {
 
 var numOfSubmenu = 0, submenuContainer = [];
 
+var ADD_TORRENT_PATH = {
+    on: "command/download",
+    off: "api/v2/torrents/add"
+};
+
 var addSubmenuAction = function(profile) {
     if (!submenuContainer.includes(profile)) {
         console.log("Add submenu for new profile: " + profile);
@@ -169,11 +174,12 @@ var doPost = function (url, profile, tabUrl, isRegex) {
             if (options[profile].rename)             { formData.append("rename", options[profile].rename); }
             if (options[profile].upLimit)            { formData.append("upLimit", options[profile].upLimit); }
             if (options[profile].dlLimit)            { formData.append("dlLimit", options[profile].dlLimit); }
+            if (options[profile].autoTMM)            { formData.append("autoTMM", options[profile].autoTMM); }
             if (options[profile].sequentialDownload) { formData.append("sequentialDownload", options[profile].sequentialDownload); }
             if (options[profile].firstLastPiecePrio) { formData.append("firstLastPiecePrio", options[profile].firstLastPiecePrio); }
 
             var req = new XMLHttpRequest();
-            req.open("post", options[profile].qbtUrl + (options[profile].qbtUrl.match(/[^\/]$/) ? "/" : "") + "command/download");
+            req.open("post", options[profile].qbtUrl + (options[profile].qbtUrl.match(/[^\/]$/) ? "/" : "") + ADD_TORRENT_PATH[options[profile].legacyAPI]);
             req.withCredentials = true;
             req.addEventListener("load", function() {
                 console.log(req.status, req.statusText);

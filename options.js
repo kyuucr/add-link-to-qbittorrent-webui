@@ -44,6 +44,7 @@ function saveOptions(e) {
 
   // For checkbox entries
   optionData["hideProfile" + profileSuffix] = "off";
+  optionData["legacyAPI" + profileSuffix] = "off";
 
   // Map FormData to option entry
   for (const entry of formData) {
@@ -75,11 +76,13 @@ function restoreOptions(profile) {
       if (profile === profileName) {
         switch (keyName) {
           case "hideProfile":
+          case "legacyAPI":
             document.querySelector("input[name=" + keyName + "]").checked = (result[key] === "on");
             break;
           case "skipChecking":
           case "paused":
           case "rootFolder":
+          case "autoTMM":
           case "sequentialDownload":
           case "firstLastPiecePrio":
             document.querySelector("select[name=" + keyName + "]").value = result[key];
