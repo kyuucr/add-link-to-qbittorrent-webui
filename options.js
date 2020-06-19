@@ -45,6 +45,7 @@ function saveOptions(e) {
   // For checkbox entries
   optionData["hideProfile" + profileSuffix] = "off";
   optionData["legacyAPI" + profileSuffix] = "off";
+  optionData["disableNotif" + profileSuffix] = "off";
 
   // Map FormData to option entry
   for (const entry of formData) {
@@ -77,6 +78,7 @@ function restoreOptions(profile) {
         switch (keyName) {
           case "hideProfile":
           case "legacyAPI":
+          case "disableNotif":
             document.querySelector("input[name=" + keyName + "]").checked = (result[key] === "on");
             break;
           case "skipChecking":

@@ -204,6 +204,16 @@
     "description": "TODO"
   },
 
+  "optionDisableNotifTitle" : {
+    "message": "Disable \"WebUI reply\" notifications",
+    "description": "Title for disable \"WebUI reply\" notifications option"
+  },
+
+  "optionDisableErrorNotifTitle" : {
+    "message": "Disable error notifications",
+    "description": "Title for disable error notifications option"
+  },
+
   "optionTrue" : {
     "message": "True",
     "description": "General option: true"

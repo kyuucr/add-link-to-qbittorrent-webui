@@ -99,7 +99,7 @@ browser.storage.local.get().then(results => {
     }
     if (!options.Default || !options.Default.qbtUrl) {
         browser.tabs.create({ url: browser.extension.getURL("options.html"), active: true });
-        createNotification(browser.i18n.getMessage("errorNoQbtURL"));
+        createNotification(browser.i18n.getMessage("errorNoQbtURL"), true);
     }
 });
 
@@ -142,10 +142,11 @@ browser.storage.onChanged.addListener((changes, areaName) => {
     }
 });
 
-var createNotification = function (message) {
+var createNotification = function (message, isError) {
+    var url = isError ? browser.extension.getURL("icons/exclamation-circle.svg") : browser.extension.getURL("icons/qbittorrent-tray.svg");
     browser.notifications.create("add-link-to-qbt-notif", {
         type: "basic",
-        iconUrl: browser.extension.getURL("icons/qbittorrent-tray.svg"),
+        iconUrl: url,
         title: browser.i18n.getMessage("notificationTitle"),
         message: message
     });
@@ -187,20 +188,22 @@ var doPost = function (url, profile, tabUrl, isRegex) {
                 if (isRegex) {
                     reply += "\n" + browser.i18n.getMessage("notificationProfile").replace("#profile", profile);
                 }
-                createNotification(reply);
                 if (!req.responseText && req.status === 403) {
+                    createNotification(reply, true);
                     browser.tabs.create({ url: options[profile].qbtUrl, active: true });
+                } else if (options[profile].disableNotif !== "on"){
+                    createNotification(reply);
                 }
             });
             req.addEventListener("error", function() {
                 console.log("XMLHttpRequest error occured");
-                createNotification(browser.i18n.getMessage("errorXHR"));
+                createNotification(browser.i18n.getMessage("errorXHR"), true);
             });
             req.send(formData);
         });
     } else {
         console.log("URL not supported!");
-        createNotification(browser.i18n.getMessage("errorNotSupported"));
+        createNotification(browser.i18n.getMessage("errorNotSupported"), true);
     }
 };
 
@@ -224,7 +227,7 @@ browser.contextMenus.onClicked.addListener((info, tab) => {
     // Check if qbtUrl set
     if (!options[profileName].qbtUrl) {
         browser.tabs.create({ url: browser.extension.getURL("options.html"), active: true });
-        createNotification(browser.i18n.getMessage("errorNoQbtURL"));
+        createNotification(browser.i18n.getMessage("errorNoQbtURL"), true);
     } else {
         // Check for cookie
         browser.cookies.get({ name: "SID", url: options[profileName].qbtUrl.replace(/:[0-9]+\/?$/, "") }).then((cookie) => {
@@ -233,7 +236,7 @@ browser.contextMenus.onClicked.addListener((info, tab) => {
             } else {
                 // No cookie, open page
                 console.log("Cannot find cookie, opening web ui..." );
-                createNotification(browser.i18n.getMessage("errorNoCookie"));
+                createNotification(browser.i18n.getMessage("errorNoCookie"), true);
                 browser.tabs.create({ url: options[profileName].qbtUrl, active: true });
             }
         });
